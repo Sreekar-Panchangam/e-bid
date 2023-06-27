@@ -1,0 +1,102 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<style>
+    .welcome-name {
+        display: flex;
+        justify-content: center;
+        text-align: center;
+    }
+</style>
+{% if user.is_authenticated %}
+<div class="welcome-name">
+  <h1></h1><br>
+  <h1>Welcome back, {{ user.first_name }}!</h1><br><br>
+</div>
+{% else %}
+{% endif %}
+<h1></h1><br>
+<h2>Live Products <a href="{% url 'products:live_products' %}" class="btn btn-light">View More <span class="fa fa-long-arrow-right"> </span></a></h2><br>
+<div class="d-flex flex-wrap">
+  {% for product in live_products %}
+  <div class="card m-2" style="width: 18rem;">
+    <a href="{% url 'products:product_detail' product.pk %}" class="text-decoration-none card-link">
+      <img src="{{ product.image.url }}" alt="product image" class="card-img-top rounded" width="100" height="250">
+      <div class="card-body">
+        <h5 class="card-title mb-0">{{ product.name }}</h5><br>
+        <p class="card-text mb-1"><span class="fa fa-map-marker"></span> Location: {{ product.location }}</p>
+        <p class="card-text mb-1"><span class="fa fa-inr"></span> Base Price: ₹{{ product.base_price }}</p>
+        <p class="card-text mb-0"><span class="fa fa-calendar"></span> Deadline: {{ product.deadline }}</p><br>
+        <p class="btn btn-primary"> Current Bid: ₹{{ product.highest_bid }}</p>
+      </div>
+    </a>
+  </div>
+  {% empty %}
+  <li class="mb-0">No live products available!</li>
+  {% endfor %}
+</div>
+<br><br>
+
+<style>
+    .category-card-container {
+        display: flex;
+        flex-wrap: wrap;
+    }
+
+    .category-card {
+        flex: 0 0 8rem;
+    }
+
+    .category-card .card-img-top {
+        border-radius: 50%;
+    }
+
+    .category-name {
+        display: flex;
+        justify-content: center;
+        text-align: center;
+    }
+
+    .category-para {
+        font-size: 14px;
+        justify-content: center;
+    }
+</style>
+<h1></h1><br>
+<h2>Browse By Category <a href="{% url 'products:all_categories' %}" class="btn btn-light">View More <span class="fa fa-long-arrow-right"> </span></a></h2><br>
+<div class="category-card-container category-name">
+    {% for category in categories %}
+    <div class="category-card m-2">
+        <a href="{% url 'products:category_detail' category.id %}" class="text-decoration-none card-link">
+            <img src="{{ category.image.url }}" alt="product image" class="card-img-top rounded" width="100" height="100">
+            <div class="card-body category-name">
+                <b><p class="card-text mb-0 category-para">{{ category.category }}</p></b><br>
+            </div>
+        </a>
+    </div>
+    {% empty %}
+    <li class="mb-0">No live products available!</li>
+    {% endfor %}
+</div>
+<h1></h1><br>
+
+<h2>Recently Closed Products</h2><br>
+<div class="d-flex flex-wrap">
+  {% for product in closed_products %}
+  <div class="card m-2" style="width: 18rem;">
+    <a href="{% url 'products:product_detail' product.pk %}" class="text-decoration-none card-link">
+      <img src="{{ product.image.url }}" alt="product image" class="card-img-top rounded" width="100" height="200">
+      <div class="card-body">
+        <h5 class="card-title mb-0">{{ product.name }}</h5><br>
+        <p class="card-text mb-1"><span class="fa fa-map-marker"></span> Location: {{ product.location }}</p>
+        <p class="card-text mb-1"><span class="fa fa-inr"></span> Base Price: ₹{{ product.base_price }}</p>
+        <p class="card-text mb-0"><span class="fa fa-calendar"></span> Deadline: {{ product.deadline }}</p>
+        <p class="card-text mb-0"><span class="fa fa-inr"></span> Sold for: {{ product.highest_bid }}</p>
+      </div>
+    </a>
+  </div>
+  {% empty %}
+  <li class="mb-0">No products available!</li>
+  {% endfor %}
+</div>
+{% endblock %}

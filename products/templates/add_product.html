@@ -1,0 +1,58 @@
+{% extends 'base.html' %}
+{% load bootstrap_filters %}
+
+{% block content %}
+<div class="container">
+  <h1 class="mb-4">Add New Product</h1>
+  <form method="post" enctype="multipart/form-data" class="needs-validation" novalidate>
+    {% csrf_token %}
+    <div class="row mb-3">
+      <div class="col-md-6">
+        <label for="{{ form.name.id_for_label }}" class="form-label">Product Name</label>
+        {{ form.name|add_bootstrap_class:'form-control form-control-lg' }}
+      </div>
+      <div class="col-md-6">
+        <label for="{{ form.location.id_for_label }}" class="form-label">Location</label>
+        {{ form.location|add_bootstrap_class:'form-control form-control-lg' }}
+      </div>
+    </div>
+    <div class="mb-3">
+      <label for="{{ form.image.id_for_label }}" class="form-label">Product Image</label>
+      {{ form.image|add_bootstrap_class:'form-control' }}
+    </div>
+    <div class="mb-3">
+      <label for="{{ form.base_price.id_for_label }}" class="form-label">Category</label>
+      {{ form.category|add_bootstrap_class:'form-control' }}
+    </div>
+    <div class="row mb-3">
+      <div class="col-md-6">
+        <label for="{{ form.base_price.id_for_label }}" class="form-label">Base Price</label>
+        {{ form.base_price|add_bootstrap_class:'form-control' }}
+      </div>
+      <div class="col-md-6">
+        <label for="{{ form.deadline.id_for_label }}" class="form-label">Deadline</label>
+        {{ form.deadline|add_bootstrap_class:'form-control' }}
+      </div>
+    </div>
+    <div class="row mb-3">
+      <div class="col-md-6">
+        <label for="{{ form.shipping_charges.id_for_label }}" class="form-label">Shipping Charges</label>
+        {{ form.shipping_charges|add_bootstrap_class:'form-control' }}
+      </div>
+      <div class="col-md-6">
+        <label for="{{ form.returns.id_for_label }}" class="form-label">Returns</label>
+        {{ form.returns|add_bootstrap_class:'form-control' }}
+      </div>
+    </div>
+    <div class="mb-3">
+      <label for="{{ form.description.id_for_label }}" class="form-label">Description</label>
+      {{ form.description|add_bootstrap_class:'form-control' }}
+    </div>
+    <div class="mb-3">
+      <label for="{{ form.specifications.id_for_label }}" class="form-label">Specifications</label>
+      {{ form.specifications|add_bootstrap_class:'form-control' }}
+    </div>
+    <button type="submit" class="btn btn-primary btn-lg">Add Product</button>
+  </form>
+</div>
+{% endblock %}

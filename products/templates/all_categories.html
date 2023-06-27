@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <h1>View by Category</h1><br>
+
+<style>
+    .welcome-name {
+        display: flex;
+        justify-content: center;
+        text-align: center;
+    }
+</style>
+<div class="d-flex flex-wrap welcome-name">
+  {% for category in categories %}
+  <div class="card m-2" style="width: 14rem;">
+    <a href="{% url 'products:category_detail' category.pk %}" class="text-decoration-none card-link">
+      <img src="{{ category.image.url }}" alt="category image" class="card-img-top rounded" width="100" height="200">
+      <div class="card-body">
+        <h5 class="card-title mb-0">{{ category.category }}</h5><br>
+      </div>
+    </a>
+  </div>
+  {% empty %}
+  <li class="mb-0">No live products available!</li>
+  {% endfor %}
+</div>
+
+{% endblock %}

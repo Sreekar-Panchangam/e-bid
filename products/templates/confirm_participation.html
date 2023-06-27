@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <h1 class="mt-4">Confirm Participation</h1>
+  <div class="card mb-3">
+    <div class="card-body">
+      <p class="card-title">In order to participate in the bidding process you need to pay a nominal deposit.<br>
+        Don't worry! It will be refunded to your wallet as soon as the bidding process is done.</p>
+        <p>Amount to be deducted from your wallet:</p>
+      <p class="card-text text-primary display-4">₹{{ amount }}</p>
+    </div>
+  </div>
+  <div class="d-flex justify-content-between">
+    <a href="{% url 'products:confirm' product_id=product_id %}" class="btn btn-primary">Confirm</a>
+    <a href="{% url 'products:product_bids' product_id=product_id %}" class="btn btn-danger">Cancel</a>
+  </div>
+{% endblock %}

@@ -1,0 +1,158 @@
+{% extends 'base.html' %}
+
+{% load custom_filters %}
+
+{% block content %}
+<div class="container">
+  <h1 class="mt-4">{{ product.name }}</h1>
+  <div class="row">
+    <div class="col-md-4">
+      <img src="{{ product.image.url }}" alt="{{ product.name }} image" class="img-fluid" width="500" height="500">
+    </div>
+    <div class="col-md-8">
+      <p><span class="fa fa-globe"></span> Location: {{ product.location }}</p>
+      <p><span class="fa fa-inr"></span> Base Price: ₹{{ product.base_price }}</p>
+      <p><span class="fa fa-hourglass-end"></span> Deadline: {{ product.deadline }}</p>
+      <p><span class="fa fa-calendar"></span> Date Posted: {{ product.date_posted }}</p>
+      <p><span class="fa fa-inr"></span> Shipping Charges: ₹{{ product.shipping_charges }} (May vary based on your location)</p>
+      <p><span class="fa fa-retweet"></span> Returns: Within {{ product.returns }} days of delivery</p>
+    </div>
+  </div><br>
+  <style>
+      .welcome-name {
+          display: flex;
+          text-align: center;
+      }
+      .space-one {
+          margin-left: 20px;
+      }
+      .upspace {
+          margin-top: 20px;
+      }
+  </style>
+  <div class="welcome-name">
+    {% if product.seller == user %}
+    {% if product.is_live %}
+      <!-- {% with pid=product.id %} -->
+      <a href="{% url 'products:end_bidding' product_id=product.id %}" class="btn btn-danger mt-3">End bidding</a><br>
+      <!-- {% endwith %} -->
+    {% endif %}
+      <a href="{% url 'products:winner' product_id=product.id %}" class="btn btn-primary mt-3 space-one">Highest Bidder</a><br>
+      <a href="{% url 'products:product_bids' product_id=product.id %}" class="btn btn-primary mt-3 space-one">View Biddings</a><br>
+    {% else %}
+    {% if product.is_live %}
+      {% with pid=product.id %}
+        <a href="{% url 'products:product_bids' product_id=pid %}" class="btn btn-primary mt-3">View Biddings</a><br>
+      {% endwith %}
+    {% endif %}
+    {% endif %}
+  </div>
+  <h3 class="upspace">Specifications</h3>
+  <div class="jumbotron">
+    <p>{{ product.specifications }}</p>
+  </div>
+  <h3>Description</h3>
+  <div class="jumbotron">
+    <p>{{ product.description }}</p>
+  </div>
+  <h3>Product Gallery</h3><br>
+  <img src="{{ product.image.url }}" alt="File" width="300">
+  {% if product.file1 %}
+    {% if product.file1.url|has_extension:'.jpg' or product.file1.url|has_extension:'.jpeg' or product.file1.url|has_extension:'.png' %}
+      <img src="{{ product.file1.url }}" alt="File" width="300">
+    {% elif product.file1.url|has_extension:'.mp4' %}
+      <video controls width="300" height="200">
+        <source src="{{ product.file1.url }}" type="video/mp4">
+        Your browser does not support the video tag.
+      </video>
+    {% endif %}
+  {% endif %}
+  {% if product.file2 %}
+    {% if product.file2.url|has_extension:'.jpg' or product.file2.url|has_extension:'.jpeg' or product.file2.url|has_extension:'.png' %}
+      <img src="{{ product.file2.url }}" alt="File" width="300">
+    {% elif product.file2.url|has_extension:'.mp4' %}
+      <video controls width="300" height="200">
+        <source src="{{ product.file2.url }}" type="video/mp4">
+        Your browser does not support the video tag.
+      </video>
+    {% endif %}
+  {% endif %}
+  {% if product.file3 %}
+    {% if product.file3.url|has_extension:'.jpg' or product.file3.url|has_extension:'.jpeg' or product.file3.url|has_extension:'.png' %}
+      <img src="{{ product.file3.url }}" alt="File" width="300">
+    {% elif product.file3.url|has_extension:'.mp4' %}
+      <video controls width="300" height="200">
+        <source src="{{ product.file3.url }}" type="video/mp4">
+        Your browser does not support the video tag.
+      </video>
+    {% endif %}
+  {% endif %}
+  {% if product.file4 %}
+    {% if product.file4.url|has_extension:'.jpg' or product.file4.url|has_extension:'.jpeg' or product.file4.url|has_extension:'.png' %}
+      <img src="{{ product.file4.url }}" alt="File" width="300">
+    {% elif product.file4.url|has_extension:'.mp4' %}
+      <video controls width="300" height="200">
+        <source src="{{ product.file4.url }}" type="video/mp4">
+        Your browser does not support the video tag.
+      </video>
+    {% endif %}
+  {% endif %}
+  {% if product.file5 %}
+    {% if product.file5.url|has_extension:'.jpg' or product.file5.url|has_extension:'.jpeg' or product.file5.url|has_extension:'.png' %}
+      <img src="{{ product.file5.url }}" alt="File" width="300">
+    {% elif product.file5.url|has_extension:'.mp4' %}
+      <video controls width="300" height="200">
+        <source src="{{ product.file5.url }}" type="video/mp4">
+        Your browser does not support the video tag.
+      </video>
+    {% endif %}
+  {% endif %}
+  {% if product.file6 %}
+    {% if product.file6.url|has_extension:'.jpg' or product.file6.url|has_extension:'.jpeg' or product.file6.url|has_extension:'.png' %}
+      <img src="{{ product.file6.url }}" alt="File" width="300">
+    {% elif product.file6.url|has_extension:'.mp4' %}
+      <video controls width="300" height="200">
+        <source src="{{ product.file6.url }}" type="video/mp4">
+        Your browser does not support the video tag.
+      </video>
+    {% endif %}
+  {% endif %}
+  {% if product.file7 %}
+    {% if product.file7.url|has_extension:'.jpg' or product.file7.url|has_extension:'.jpeg' or product.file7.url|has_extension:'.png' %}
+      <img src="{{ product.file7.url }}" alt="File" width="300">
+    {% elif product.file7.url|has_extension:'.mp4' %}
+      <video controls width="300" height="200">
+        <source src="{{ product.file7.url }}" type="video/mp4">
+        Your browser does not support the video tag.
+      </video>
+    {% endif %}
+  {% endif %}
+  {% if product.file8 %}
+    {% if product.file8.url|has_extension:'.jpg' or product.file8.url|has_extension:'.jpeg' or product.file8.url|has_extension:'.png' %}
+      <img src="{{ product.file8.url }}" alt="File" width="300">
+    {% elif product.file8.url|has_extension:'.mp4' %}
+      <video controls width="300" height="200">
+        <source src="{{ product.file8.url }}" type="video/mp4">
+        Your browser does not support the video tag.
+      </video>
+    {% endif %}
+  {% endif %}
+  {% if product.file9 %}
+    {% if product.file9.url|has_extension:'.jpg' or product.file9.url|has_extension:'.jpeg' or product.file9.url|has_extension:'.png' %}
+      <img src="{{ product.file9.url }}" alt="File" width="300">
+    {% elif product.file9.url|has_extension:'.mp4' %}
+      <video controls width="300" height="200">
+        <source src="{{ product.file9.url }}" type="video/mp4">
+        Your browser does not support the video tag.
+      </video>
+    {% endif %}
+  {% endif %}
+  <br><br><h3>About the seller:</h3>
+  <div class="jumbotron">
+      <p>Name: {{ product.seller.first_name }} {{ product.seller.last_name }}</p>
+      <p>Location: {{ product.seller.city }}, {{ product.seller.state }}</p>
+  </div>
+  </div>
+
+
+{% endblock %}

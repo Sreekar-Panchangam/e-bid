@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h2>Products related to {{ category }}</h2>
+<div class="d-flex flex-wrap">
+  {% for product in products %}
+  {% if product.is_live %}
+  <div class="card m-2" style="width: 18rem;">
+    <a href="{% url 'products:product_detail' product.pk %}" class="text-decoration-none card-link">
+      <img src="{{ product.image.url }}" alt="product image" class="card-img-top rounded" width="100" height="250">
+      <div class="card-body">
+        <h5 class="card-title mb-0">{{ product.name }}</h5><br>
+        <p class="card-text mb-1"><span class="fa fa-map-marker"></span> Location: {{ product.location }}</p>
+        <p class="card-text mb-1"><span class="fa fa-inr"></span> Base Price: ₹{{ product.base_price }}</p>
+        <p class="card-text mb-0"><span class="fa fa-calendar"></span> Deadline: {{ product.deadline }}</p><br>
+        <p class="btn btn-primary"> Current Bid: ₹{{ product.highest_bid }}</p>
+      </div>
+    </a>
+  </div>
+  {% endif %}
+  {% empty %}
+  <li class="mb-0">No products available in this category!</li>
+  {% endfor %}
+</div>
+{% endblock %}

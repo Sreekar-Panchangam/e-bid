@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <h1 class="mt-4">Your Notifications</h1><br>
+  <style>
+      .notification-item {
+          margin-bottom: 10px; /* Adjust the margin bottom as per your preference */
+      }
+
+      .notification-item .row {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+      }
+
+      .notification-item .col-2 {
+          flex-grow: 0;
+          max-width: 80px; /* Adjust the maximum width of the image column */
+      }
+
+      .notification-item .time {
+          text-align: right;
+          color: gray;
+          font-size: 14px;
+      }
+  </style>
+  <div>
+    {% for notification in notifications %}
+    <div class="notification-item">
+        <div class="row">
+            <div class="col-2">
+                <img src="{{ notification.type.image.url }}" alt="Error" class="img-thumbnail" width="50" height="50">
+            </div>
+            <div class="col-10">
+                <p>{{ notification.text }}</p>
+                <p class="time">{{ notification.time }}</p>
+            </div>
+        </div>
+        <hr class="my-3">
+    </div>
+    {% endfor %}
+  </div>
+{% endblock %}

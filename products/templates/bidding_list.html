@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <h1 class="mt-4">List of biddings</h1>
+  <div class="table-responsive">
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th>Bidder</th>
+          <th>Bid Amount</th>
+          <th>Date</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for bidding in object_list %}
+        {% if not bidding.amount == base %}
+        {% if now == 'No' %}
+          <tr>
+            <td>{{ bidding.user.username }}</td>
+            <td>{{ bidding.amount }}</td>
+            <td>{{ bidding.date }}</td>
+          </tr>
+        {% else %}
+          <tr>
+            <td>NA</td>
+            <td>NA</td>
+            <td>NA</td>
+          </tr>
+        {% endif %}
+        {% endif %}
+        {% empty %}
+          <p>No Biddings yet on this product.</p>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+  {% if owner != user %}
+  {% if result == 'Yes' %}
+    <a href="{% url 'products:confirm_participation' product_id=theid %}" class="btn btn-primary mt-3">Participate</a>
+  {% else %}
+    <a href="{% url 'products:bid_again' product_id=theid %}" class="btn btn-primary mt-3">Bid Again</a>
+  {% endif %}
+  {% endif %}
+{% endblock %}
