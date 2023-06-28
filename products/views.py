@@ -15,6 +15,16 @@ from django.shortcuts import render, redirect
 from django.shortcuts import get_object_or_404
 from django.forms import ValidationError
 
+def quicksort(nums):
+    if len(nums) <= 1:
+        return nums
+    else:
+        pivot = nums[len(nums) // 2]
+        less = [x for x in nums if x < pivot]
+        equal = [x for x in nums if x == pivot]
+        greater = [x for x in nums if x > pivot]
+        return less + equal + quicksort(greater)
+        
 class AllCategoriesView(ListView):
     model = ProductCategory
     template_name = 'all_categories.html'
