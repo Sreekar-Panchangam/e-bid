@@ -14,16 +14,6 @@ from django.urls import reverse_lazy,reverse
 from django.shortcuts import render, redirect
 from django.shortcuts import get_object_or_404
 from django.forms import ValidationError
-
-def quicksort(nums):
-    if len(nums) <= 1:
-        return nums
-    else:
-        pivot = nums[len(nums) // 2]
-        less = [x for x in nums if x < pivot]
-        equal = [x for x in nums if x == pivot]
-        greater = [x for x in nums if x > pivot]
-        return less + equal + quicksort(greater)
         
 class AllCategoriesView(ListView):
     model = ProductCategory
@@ -178,7 +168,7 @@ class BidAgainView(LoginRequiredMixin, CreateView):
             if amount > product.highest_bid:
                 old_amount = product.highest_bid
                 if old_amount != Decimal(0):
-                    old_bid = Bidding.objects.get(amount=old_amount)
+                    old_bid = Bidding.objects.filter(amount=old_amount).first()
                     old_winner = User.objects.get(username=old_bid.user)
                     category = NotificationCategory.objects.get(category='Lost spot')
                     text = f"You are no more the highest bidder for the product {product.name}! Bid again to reclaim!"
@@ -252,4 +242,6 @@ class HighestBidderView(View):
                 'email': user.email,
                 'pincode': user.pincode,
             }
-        return render(request, 'winner.html', context)
+            return render(request, 'winner.html', context)
+        else:
+            return render(request, 'wait.html')
